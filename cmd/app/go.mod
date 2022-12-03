@@ -1,4 +1,4 @@
-module github.com/SapanPatibandha/golangWithDynamoDB/src/cmd/app
+module github.com/SapanPatibandha/golangWithDynamoDB/cmd/app
 
 go 1.19
 
