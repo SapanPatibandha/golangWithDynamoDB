@@ -12,7 +12,6 @@ type response struct {
 }
 
 func newResponse(data interface{}, status int) *response {
-
 	return &response{
 		Status: status,
 		Result: data,
@@ -46,26 +45,31 @@ func StatusNoContent(w http.ResponseWriter, r *http.Request) {
 	newResponse(nil, http.StatusNoContent).sendResponse(w, r)
 }
 
-func StatusBedRequest(w http.ResponseWriter, r *http.Request, err error) {
+// 404
+func StatusBadRequest(w http.ResponseWriter, r *http.Request, err error) {
 	data := map[string]interface{}{"error": err.Error()}
 	newResponse(data, http.StatusBadRequest).sendResponse(w, r)
 }
 
+// 404
 func StatusNotFound(w http.ResponseWriter, r *http.Request, err error) {
 	data := map[string]interface{}{"error": err.Error()}
 	newResponse(data, http.StatusNotFound).sendResponse(w, r)
 }
 
+// 405
 func StatusMethodNotAllowed(w http.ResponseWriter, r *http.Request) {
 	newResponse(nil, http.StatusMethodNotAllowed).sendResponse(w, r)
 }
 
+// 409
 func StatusConFlict(w http.ResponseWriter, r *http.Request, err error) {
 	data := map[string]interface{}{"error": err.Error()}
 	newResponse(data, http.StatusConflict).sendResponse(w, r)
 }
 
-func StatusInteernalServerError(w http.ResponseWriter, r *http.Request, err error) {
+// 500
+func StatusInternalServerError(w http.ResponseWriter, r *http.Request, err error) {
 	data := map[string]interface{}{"error": err.Error()}
 	newResponse(data, http.StatusInternalServerError).sendResponse(w, r)
 }

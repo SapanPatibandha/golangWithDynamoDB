@@ -25,11 +25,9 @@ func NewRules() *Rules {
 }
 
 func (r *Rules) ConvertIoReturnToStruct(data io.Reader, model interface{}) (interface{}, error) {
-
 	if data == nil {
 		return nil, errors.New("body is invalid")
 	}
-
 	return model, json.NewDecoder(data).Decode(model)
 }
 

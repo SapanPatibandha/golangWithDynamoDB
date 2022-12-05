@@ -42,13 +42,13 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) getOne(w http.ResponseWriter, r *http.Request) {
 	ID, err := uuid.Parse(chi.URLParm(r, "ID"))
 	if err != nil {
-		HttpStatus.StatusBedRequest(w, r, errors.New("ID is not uuid values"))
+		HttpStatus.StatusBadRequest(w, r, errors.New("ID is not uuid values"))
 		return
 	}
 
 	response, err := h.Controller.ListOne(ID)
 	if err != nil {
-		HttpStatus.StatusInteernalServerError(w, r, err)
+		HttpStatus.StatusInternalServerError(w, r, err)
 		return
 	}
 
@@ -58,7 +58,7 @@ func (h *Handler) getOne(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) getAll(w http.ResponseWriter, r *http.Request) {
 	response, err := h.Controller.ListAll()
 	if err != nil {
-		HttpStatus.StatusInteernalServerError(w, r, err)
+		HttpStatus.StatusInternalServerError(w, r, err)
 		return
 	}
 
@@ -68,13 +68,13 @@ func (h *Handler) getAll(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) Post(w http.ResponseWriter, r *http.Request) {
 	productBody, err := h.getBodyAndValidate(r, uuid.Nil)
 	if err != nil {
-		HttpStatus.StatusBedRequest(w, r, err)
+		HttpStatus.StatusBadRequest(w, r, err)
 		return
 	}
 
 	ID, err := h.Controller.Create(productBody)
 	if err != nil {
-		HttpStatus.StatusInteernalServerError(w, r, err)
+		HttpStatus.StatusInternalServerError(w, r, err)
 		return
 	}
 
@@ -85,19 +85,19 @@ func (h *Handler) Put(w http.ResponseWriter, r *http.Request) {
 	ID, err := uuid.Parse(chi.URLParm(r, "ID"))
 
 	if err != nil {
-		HttpStatus.StatusBedRequest(w, r, errors.New("ID is not uuid values"))
+		HttpStatus.StatusBadRequest(w, r, errors.New("ID is not uuid values"))
 		return
 	}
 
 	productBody, err := h.getBodyAndValidate(r, ID)
 
 	if err != nil {
-		HttpStatus.StatusBedRequest(w, r, err)
+		HttpStatus.StatusBadRequest(w, r, err)
 		return
 	}
 
 	if err := h.Controller.Update(ID, productBody); err != nil {
-		HttpStatus.StatusInteernalServerError(w, r, err)
+		HttpStatus.StatusInternalServerError(w, r, err)
 		return
 	}
 
@@ -107,12 +107,12 @@ func (h *Handler) Put(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) Delete(w http.ResponseWriter, r *http.Request) {
 	ID, err := uuid.Parse(chi.URLParam(r, "ID"))
 	if err != nil {
-		HttpStatus.StatusBedRequest(w, r, errors.New("ID is not uuid valid"))
+		HttpStatus.StatusBadRequest(w, r, errors.New("ID is not uuid valid"))
 		return
 	}
 
 	if err := h.Controller.Remove(ID); err != nil {
-		HttpStatus.StatusInteernalServerError(w, r, err)
+		HttpStatus.StatusInternalServerError(w, r, err)
 		return
 	}
 
