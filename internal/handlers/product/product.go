@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 
 	"github.com/SapanPatibandha/golangWithDynamoDB/internal/controllers/product"
@@ -40,7 +40,7 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) getOne(w http.ResponseWriter, r *http.Request) {
-	ID, err := uuid.Parse(chi.URLParm(r, "ID"))
+	ID, err := uuid.Parse(chi.URLParam(r, "ID"))
 	if err != nil {
 		HttpStatus.StatusBadRequest(w, r, errors.New("ID is not uuid values"))
 		return
@@ -82,7 +82,7 @@ func (h *Handler) Post(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) Put(w http.ResponseWriter, r *http.Request) {
-	ID, err := uuid.Parse(chi.URLParm(r, "ID"))
+	ID, err := uuid.Parse(chi.URLParam(r, "ID"))
 
 	if err != nil {
 		HttpStatus.StatusBadRequest(w, r, errors.New("ID is not uuid values"))

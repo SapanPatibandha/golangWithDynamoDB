@@ -6,14 +6,13 @@ import (
 	"net/http"
 
 	"github.com/aws/aws-sdk-go/service/dynamodb"
-	"honnef.co/go/tools/config"
 
 	"github.com/SapanPatibandha/golangWithDynamoDB/config"
-	"github.com/SapanPatibandha/golangWithDynamoDB/internal/reposotery/adaptor"
-	"github.com/SapanPatibandha/golangWithDynamoDB/internal/reposotery/instance"
+	"github.com/SapanPatibandha/golangWithDynamoDB/internal/repository/adapter"
+	"github.com/SapanPatibandha/golangWithDynamoDB/internal/repository/instance"
 	"github.com/SapanPatibandha/golangWithDynamoDB/internal/routes"
-	RulesProduct "github.com/SapanPatibandha/golangWithDynamoDB/internal/routes/product"
 	"github.com/SapanPatibandha/golangWithDynamoDB/internal/rules"
+	RulesProduct "github.com/SapanPatibandha/golangWithDynamoDB/internal/rules/product"
 	"github.com/SapanPatibandha/golangWithDynamoDB/utils/logger"
 )
 
@@ -23,7 +22,7 @@ func main() {
 	configs := config.GetConfig()
 
 	connection := instance.GetConnection()
-	repository := adaptor.NewAdaptor(connection)
+	repository := adapter.NewAdapter(connection)
 
 	logger.INFO("waiting for service to start", nil)
 
@@ -37,7 +36,7 @@ func main() {
 
 	logger.PANIC("", checkTables(connection))
 
-	port := fmt.Sprintf(":%v", configs.port)
+	port := fmt.Sprintf(":%v", configs.Port)
 	router := routes.NewRouter().SetRouters(repository)
 	logger.INFO("service is running on port", port)
 

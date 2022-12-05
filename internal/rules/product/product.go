@@ -11,7 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	Validation "github.com/go-ozzo/ozzo-validation/v4"
 	"github.com/go-ozzo/ozzo-validation/v4/is"
-	"github.com/gofrs/uuid"
+	"github.com/google/uuid"
 
 	"github.com/SapanPatibandha/golangWithDynamoDB/internal/entities"
 	"github.com/SapanPatibandha/golangWithDynamoDB/internal/entities/product"
@@ -52,9 +52,9 @@ func (r *Rules) Validate(model interface{}) error {
 		return err
 	}
 
-	return Validation.ValidationStruct(productModel,
-		Validation.field(&productModel.ID, Validation.Required, is.UUIDv4),
-		Validation.field(&productModel.Name, Validation.Required, Validation.Length(3, 50)),
+	return Validation.ValidateStruct(productModel,
+		Validation.Field(&productModel.ID, Validation.Required, is.UUIDv4),
+		Validation.Field(&productModel.Name, Validation.Required, Validation.Length(3, 50)),
 	)
 }
 

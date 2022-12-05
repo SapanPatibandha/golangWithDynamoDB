@@ -5,9 +5,8 @@ import (
 	HealthHandler "github.com/SapanPatibandha/golangWithDynamoDB/internal/handlers/health"
 	ProductHandler "github.com/SapanPatibandha/golangWithDynamoDB/internal/handlers/product"
 	"github.com/SapanPatibandha/golangWithDynamoDB/internal/repository/adapter"
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/go-ghi/chi/middleware"
 )
 
 type Router struct {
@@ -54,7 +53,7 @@ func (r *Router) RouterHealth(repository adapter.Interface) {
 func (r *Router) RouterProduct(repository adapter.Interface) {
 	handler := ProductHandler.NewHandler(repository)
 
-	r.router.route("/product", func(route chi.Router) {
+	r.router.Route("/product", func(route chi.Router) {
 		route.Post("/", handler.Post)
 		route.Get("/", handler.Get)
 		route.Put("/{ID}", handler.Put)

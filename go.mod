@@ -3,6 +3,14 @@ module github.com/SapanPatibandha/golangWithDynamoDB
 go 1.19
 
 require (
+	github.com/go-chi/cors v1.2.1
+	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
+	github.com/gofrs/uuid v4.3.1+incompatible
+	honnef.co/go/tools v0.3.3
+)
+
+require (
+	github.com/BurntSushi/toml v0.4.1 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
 	github.com/aws/aws-sdk-go v1.44.152 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -16,5 +24,6 @@ require (
 	github.com/stretchr/testify v1.8.1 // indirect
 	golang.org/x/net v0.2.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
+	golang.org/x/tools v0.1.12 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
