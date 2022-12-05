@@ -1,4 +1,4 @@
-GOFMT_FILES?=$$(find . -name '*.go' | grep -v vendor)
+GOFMT_FILES?=$$(find . -name '*.go' | findstr -v vendor)
 
 fmt:
 	gofmt -w $(GOFMT_FILES)
