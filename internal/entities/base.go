@@ -16,7 +16,7 @@ type Interface interface {
 }
 
 type Base struct {
-	ID        uuid.UUID `json:_id`
+	ID        uuid.UUID `json:"_id"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }

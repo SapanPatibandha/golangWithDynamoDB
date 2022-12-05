@@ -1,7 +1,10 @@
 package routes
 
 import (
+	ServerConfig "github.com/SapanPatibandha/golangWithDynamoDB/config"
+	HealthHandler "github.com/SapanPatibandha/golangWithDynamoDB/internal/handlers/health"
 	ProductHandler "github.com/SapanPatibandha/golangWithDynamoDB/internal/handlers/product"
+	"github.com/SapanPatibandha/golangWithDynamoDB/internal/repository/adapter"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-ghi/chi/middleware"
@@ -14,7 +17,7 @@ type Router struct {
 
 func NewRouter() *Router {
 	return &Router{
-		config: NewRouter().SetTimeout(serviceConfig.GetConfig().Timeout),
+		config: NewConfig().SetTimeout(ServerConfig.GetConfig().Timeout),
 		router: chi.NewRouter(),
 	}
 }
@@ -37,7 +40,7 @@ func (r *Router) setConfigsRouters() {
 }
 
 func (r *Router) RouterHealth(repository adapter.Interface) {
-	handler := HealthHandler.newHandler(repository)
+	handler := HealthHandler.NewHandler(repository)
 
 	r.router.Route("/health", func(route chi.Router) {
 		route.Post("/", handler.Post)
@@ -48,8 +51,7 @@ func (r *Router) RouterHealth(repository adapter.Interface) {
 	})
 }
 
-func (r *Router) RouterProduct(repository adaptor.Interface) {
-
+func (r *Router) RouterProduct(repository adapter.Interface) {
 	handler := ProductHandler.NewHandler(repository)
 
 	r.router.route("/product", func(route chi.Router) {
@@ -73,7 +75,7 @@ func (r *Router) EnableTimeout() *Router {
 }
 
 func (r *Router) EnableCORS() *Router {
-	r.router.Use(r.config.Corse)
+	r.router.Use(r.config.Cors)
 	return r
 }
 

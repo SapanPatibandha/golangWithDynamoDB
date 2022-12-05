@@ -12,7 +12,6 @@ import (
 	Validation "github.com/go-ozzo/ozzo-validation/v4"
 	"github.com/go-ozzo/ozzo-validation/v4/is"
 	"github.com/gofrs/uuid"
-	"github.com/hashicorp/go-uuid"
 
 	"github.com/SapanPatibandha/golangWithDynamoDB/internal/entities"
 	"github.com/SapanPatibandha/golangWithDynamoDB/internal/entities/product"
@@ -39,7 +38,6 @@ func (r *Rules) Migrate(connection *dynamodb.DynamoDB) error {
 }
 
 func (r *Rules) GetMock() interface{} {
-
 	return product.Product{
 		Base: entities.Base{
 			ID:        uuid.New(),
@@ -52,7 +50,6 @@ func (r *Rules) GetMock() interface{} {
 
 func (r *Rules) Validate(model interface{}) error {
 	productModel, err := product.InterfaceToModel(model)
-
 	if err != nil {
 		return err
 	}
